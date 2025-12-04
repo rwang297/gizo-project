@@ -1,4 +1,7 @@
-import React, { JSX } from "react";
+"use client";
+
+import React, { JSX, useEffect, useState } from "react";
+import { useProtectedRoute } from "@/lib/hooks/useAuth";
 
 type Customer = {
   id: string;
