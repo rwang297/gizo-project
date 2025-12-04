@@ -6,11 +6,11 @@ export interface SignupData {
   email: string;
   password: string;
   phoneNumber: string;
-  businessType: string;
+  typeOfBusiness: string;
   location: string;
-  whatsapp?: string;
-  facebook?: string;
-  instagram?: string;
+  whatsappNumber?: string;
+  facebookProfile?: string;
+  instagramHandle?: string;
 }
 
 export interface LoginCredentials {
