@@ -219,11 +219,11 @@ export default function SignupPage() {
               <input
                 type="text"
                 placeholder="https://facebook.com/yourbusiness or any link"
-                value={values.facebook}
-                onChange={(e) => onChange("facebook", e.target.value)}
+                value={values.facebookProfile}
+                onChange={(e) => onChange("facebookProfile", e.target.value)}
                 className="mt-1 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
               />
-              {errors.facebook && <p className="mt-1 text-sm text-red-600">{errors.facebook}</p>}
+              {errors.facebookProfile && <p className="mt-1 text-sm text-red-600">{errors.facebookProfile}</p>}
             </div>
 
             <div className="md:col-span-2">
