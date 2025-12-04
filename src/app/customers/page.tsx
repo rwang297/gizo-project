@@ -1,4 +1,7 @@
-import React, { JSX } from "react";
+"use client";
+
+import React, { JSX, useEffect, useState } from "react";
+import { useProtectedRoute } from "@/lib/hooks/useAuth";
 
 type Customer = {
   id: string;
@@ -31,6 +34,26 @@ const colors: string[] = [
 ];
 
 export default function CustomersPage(): JSX.Element {
+  const { isReady, isAuthenticated } = useProtectedRoute();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading || !isReady) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="relative w-12 h-12 mx-auto mb-4">
+            <div className="absolute inset-0 rounded-full border-4 border-emerald-200 border-t-emerald-600 animate-spin"></div>
+          </div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   const getColor = (name: string): string => {
     const index = name.charCodeAt(0) % colors.length;
     return colors[index];

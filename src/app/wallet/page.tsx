@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/lib/hooks/useAuth";
 
 const transactions = [
   { id: "TX-001", title: "Sale - Premium Wireless Headphones", status: "Completed", amount: "+$299.99", date: "1/15/2024", type: "credit" },
@@ -7,6 +10,26 @@ const transactions = [
 ];
 
 export default function WalletPage() {
+  const { isReady, isAuthenticated } = useProtectedRoute();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading || !isReady) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="relative w-12 h-12 mx-auto mb-4">
+            <div className="absolute inset-0 rounded-full border-4 border-emerald-200 border-t-emerald-600 animate-spin"></div>
+          </div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">

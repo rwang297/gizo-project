@@ -1,6 +1,10 @@
+"use client";
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { ImGit } from 'react-icons/im';
+import { useEffect, useState } from 'react';
+import { useProtectedRoute } from '@/lib/hooks/useAuth';
 
 const products = [
   {
@@ -426,6 +430,26 @@ const products = [
 const categories = ['All Categories', 'Fashion & Accessories', 'Food & Beverages', 'Technology', 'Health & Beauty', 'Arts & Crafts', 'Services'];
 
 export default function MarketplacePage() {
+  const { isReady, isAuthenticated } = useProtectedRoute();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading || !isReady) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="relative w-12 h-12 mx-auto mb-4">
+            <div className="absolute inset-0 rounded-full border-4 border-emerald-200 border-t-emerald-600 animate-spin"></div>
+          </div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full bg-white">
       <section className="bg-gradient-to-r from-emerald-500 to-emerald-900 text-white py-16">

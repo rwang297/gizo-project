@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/lib/hooks/useAuth";
 
 const orders = [
   { id: "PRD-001", customer: "Products", email: "Added", items: 1, total: "₦499.98", date: "1/15/2024",  avatar: "images/apple.png" },
@@ -8,6 +11,26 @@ const orders = [
 ];
 
 export default function OrdersPage() {
+  const { isReady, isAuthenticated } = useProtectedRoute();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    setIsLoading(false);
+  }, []);
+
+  if (isLoading || !isReady) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="relative w-12 h-12 mx-auto mb-4">
+            <div className="absolute inset-0 rounded-full border-4 border-emerald-200 border-t-emerald-600 animate-spin"></div>
+          </div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   const kpis = [
     { title: "Total Products", value: "5", color: "blue" },
     { title: "Pending", value: "1", color: "yellow" },
