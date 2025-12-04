@@ -46,16 +46,20 @@ class AuthService {
       body: JSON.stringify(data),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || "Signup failed");
+    let result;
+    try {
+      result = await response.json();
+    } catch (e) {
+      throw new Error("Failed to process server response");
     }
 
-    const result = await response.json();
-    
+    if (!response.ok) {
+      throw new Error(result.message || "Signup failed");
+    }
+
     // Store user info but don't store token yet - wait for email verification
     this.setUser(result);
-    
+
     return result;
   }
 
