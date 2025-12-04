@@ -15,11 +15,11 @@ export default function SignupPage() {
     email: "",
     password: "",
     phoneNumber: "",
-    businessType: "",
+    typeOfBusiness: "",
     location: "",
-    whatsapp: "",
-    facebook: "",
-    instagram: "",
+    whatsappNumber: "",
+    facebookProfile: "",
+    instagramHandle: "",
   });
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [submitting, setSubmitting] = useState(false);
