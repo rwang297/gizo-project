@@ -204,7 +204,7 @@ export default function SignupPage() {
             <div>
               <label className="block text-sm font-medium text-gray-800">WhatsApp Number</label>
               <input
-                type="tel"
+                type="text"
                 inputMode="tel"
                 placeholder="+234XXXXXXXXXX"
                 value={values.whatsapp}
