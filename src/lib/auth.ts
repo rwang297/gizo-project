@@ -5,7 +5,7 @@ export interface SignupData {
   contactPersonName: string;
   email: string;
   password: string;
-  phone: string;
+  phoneNumber: string;
   businessType: string;
   location: string;
   whatsapp?: string;
