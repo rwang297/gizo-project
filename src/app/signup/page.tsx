@@ -169,8 +169,8 @@ export default function SignupPage() {
             <div>
               <label className="block text-sm font-medium text-gray-800">Type of Business *</label>
               <select
-                value={values.businessType}
-                onChange={(e) => onChange("businessType", e.target.value)}
+                value={values.typeOfBusiness}
+                onChange={(e) => onChange("typeOfBusiness", e.target.value)}
                 className="mt-1 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
               >
                 <option value="">Select business type</option>
@@ -180,7 +180,7 @@ export default function SignupPage() {
                   </option>
                 ))}
               </select>
-              {errors.businessType && <p className="mt-1 text-sm text-red-600">{errors.businessType}</p>}
+              {errors.typeOfBusiness && <p className="mt-1 text-sm text-red-600">{errors.typeOfBusiness}</p>}
             </div>
 
             <div>
