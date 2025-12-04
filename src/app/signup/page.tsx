@@ -55,9 +55,7 @@ export default function SignupPage() {
     if (!/^\+?[0-9]{7,15}$/.test(v.phone)) err.phone = "Enter a valid phone number";
     if (!v.businessType) err.businessType = "Select a business type";
     if (!v.location.trim()) err.location = "Location is required";
-    if (v.whatsapp && !/^\+?[0-9]{7,15}$/.test(v.whatsapp)) err.whatsapp = "Enter a valid WhatsApp number";
-    if (v.facebook && !/^https?:\/\//i.test(v.facebook)) err.facebook = "Enter a full URL";
-    if (v.instagram && !/^@?\w{1,30}$/i.test(v.instagram)) err.instagram = "Enter a valid handle";
+    // Social media fields are optional and accept any input
     return err;
   }
 
