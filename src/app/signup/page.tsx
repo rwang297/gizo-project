@@ -231,11 +231,11 @@ export default function SignupPage() {
               <input
                 type="text"
                 placeholder="@yourbusiness or any link"
-                value={values.instagram}
-                onChange={(e) => onChange("instagram", e.target.value)}
+                value={values.instagramHandle}
+                onChange={(e) => onChange("instagramHandle", e.target.value)}
                 className="mt-1 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
               />
-              {errors.instagram && <p className="mt-1 text-sm text-red-600">{errors.instagram}</p>}
+              {errors.instagramHandle && <p className="mt-1 text-sm text-red-600">{errors.instagramHandle}</p>}
             </div>
           </div>
 
