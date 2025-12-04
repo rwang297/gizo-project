@@ -217,8 +217,8 @@ export default function SignupPage() {
             <div>
               <label className="block text-sm font-medium text-gray-800">Facebook Profile</label>
               <input
-                type="url"
-                placeholder="https://facebook.com/yourbusiness"
+                type="text"
+                placeholder="https://facebook.com/yourbusiness or any link"
                 value={values.facebook}
                 onChange={(e) => onChange("facebook", e.target.value)}
                 className="mt-1 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
