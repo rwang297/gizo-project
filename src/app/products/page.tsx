@@ -1,8 +1,9 @@
-import React from "react";
+"use client";
+
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import { FiDollarSign } from "react-icons/fi";
-
-
+import { useProtectedRoute } from "@/lib/hooks/useAuth";
 
 const products = [
   {
