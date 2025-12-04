@@ -41,6 +41,19 @@ export default function DashboardPage() {
     { id: "#1238", customer: "Products", product: "Food Spread", amount: "₦700", status: "Added", time: "3 hours ago" },
   ];
 
+  if (isLoading || !isReady) {
+    return (
+      <div className="flex items-center justify-center min-h-screen">
+        <div className="text-center">
+          <div className="relative w-12 h-12 mx-auto mb-4">
+            <div className="absolute inset-0 rounded-full border-4 border-emerald-200 border-t-emerald-600 animate-spin"></div>
+          </div>
+          <p className="text-gray-600">Loading...</p>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="space-y-6">
       <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4">
