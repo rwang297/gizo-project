@@ -1,6 +1,10 @@
+"use client";
+
 import Image from 'next/image';
 import Link from 'next/link';
 import { ImGit } from 'react-icons/im';
+import { useEffect, useState } from 'react';
+import { useProtectedRoute } from '@/lib/hooks/useAuth';
 
 const products = [
   {
