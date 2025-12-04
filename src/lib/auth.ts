@@ -2,7 +2,7 @@ const API_BASE_URL = process.env.NEXT_PUBLIC_API_BASE_URL || "https://kasuwan-gi
 
 export interface SignupData {
   businessName: string;
-  contactName: string;
+  contactPersonName: string;
   email: string;
   password: string;
   phone: string;
