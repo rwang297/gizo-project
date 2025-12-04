@@ -14,7 +14,7 @@ export default function SignupPage() {
     contactPersonName: "",
     email: "",
     password: "",
-    phone: "",
+    phoneNumber: "",
     businessType: "",
     location: "",
     whatsapp: "",
