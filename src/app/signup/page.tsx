@@ -3,18 +3,9 @@
 import React, { useMemo, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
+import { authService, SignupData } from "@/lib/auth";
 
-type FormValues = {
-  businessName: string;
-  contactName: string;
-  email: string;
-  phone: string;
-  businessType: string;
-  location: string;
-  whatsapp?: string;
-  facebook?: string;
-  instagram?: string;
-};
+type FormValues = SignupData;
 
 export default function SignupPage() {
   const router = useRouter();
@@ -22,6 +13,7 @@ export default function SignupPage() {
     businessName: "",
     contactName: "",
     email: "",
+    password: "",
     phone: "",
     businessType: "",
     location: "",
@@ -31,6 +23,7 @@ export default function SignupPage() {
   });
   const [errors, setErrors] = useState<Partial<Record<keyof FormValues, string>>>({});
   const [submitting, setSubmitting] = useState(false);
+  const [generalError, setGeneralError] = useState("");
 
   const businessTypes = useMemo(
     () => [
@@ -50,6 +43,7 @@ export default function SignupPage() {
   function onChange<K extends keyof FormValues>(key: K, val: FormValues[K]) {
     setValues((v) => ({ ...v, [key]: val }));
     setErrors((e) => ({ ...e, [key]: undefined }));
+    setGeneralError("");
   }
 
   function validate(v: FormValues) {
@@ -57,6 +51,7 @@ export default function SignupPage() {
     if (!v.businessName.trim()) err.businessName = "Business name is required";
     if (!v.contactName.trim()) err.contactName = "Contact person name is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) err.email = "Enter a valid email";
+    if (!v.password || v.password.length < 6) err.password = "Password must be at least 6 characters";
     if (!/^\+?[0-9]{7,15}$/.test(v.phone)) err.phone = "Enter a valid phone number";
     if (!v.businessType) err.businessType = "Select a business type";
     if (!v.location.trim()) err.location = "Location is required";
@@ -66,46 +61,25 @@ export default function SignupPage() {
     return err;
   }
 
-  function persistSignup(v: FormValues) {
-    try {
-      const existingRaw = localStorage.getItem("kg_signups");
-      const existing: any[] = existingRaw ? JSON.parse(existingRaw) : [];
-      const record = {
-        id: `u_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 8)}`,
-        ...v,
-        createdAt: Date.now(),
-      };
-      existing.push(record);
-      localStorage.setItem("kg_signups", JSON.stringify(existing));
-      localStorage.setItem("kg_currentUser", JSON.stringify(record));
-    } catch (_) {
-    }
-  }
-
   async function onSubmit(e: React.FormEvent) {
     e.preventDefault();
-   
+    
+    const validationErrors = validate(values);
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors);
+      return;
+    }
+
     setErrors({});
+    setGeneralError("");
     setSubmitting(true);
 
-   
     try {
-      const res = await fetch("/api/signup", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(values),
-      });
-      if (!res.ok) {
-        
-        persistSignup(values);
-        router.push("/dashboard");
-        return;
-      }
-      persistSignup(values);
-      router.push("/dashboard");
-    } catch (_) {
-      persistSignup(values);
-      router.push("/dashboard");
+      const response = await authService.signup(values);
+      // Redirect to authentication page to verify email
+      router.push("/auth/verify");
+    } catch (error) {
+      setGeneralError(error instanceof Error ? error.message : "Signup failed. Please try again.");
     } finally {
       setSubmitting(false);
     }
@@ -123,6 +97,12 @@ export default function SignupPage() {
           <p className="text-sm text-emerald-800/90 max-w-xl">Tip: Have photos, a short description and product prices ready to complete your listing faster.</p>
           <div className="hidden md:block rounded-md bg-white border border-emerald-100 px-3 py-2 text-sm text-emerald-700">Estimated time: 5 min</div>
         </div>
+
+        {generalError && (
+          <div className="mb-4 rounded-lg bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-800">
+            {generalError}
+          </div>
+        )}
 
         <form onSubmit={onSubmit} noValidate>
           <div className="grid grid-cols-1 gap-6 md:grid-cols-2 md:gap-8">
@@ -151,6 +131,30 @@ export default function SignupPage() {
             </div>
 
             <div>
+              <label className="block text-sm font-medium text-gray-800">Email Address *</label>
+              <input
+                type="email"
+                value={values.email}
+                onChange={(e) => onChange("email", e.target.value)}
+                className="mt-1 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                autoComplete="email"
+              />
+              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-800">Password *</label>
+              <input
+                type="password"
+                value={values.password}
+                onChange={(e) => onChange("password", e.target.value)}
+                className="mt-1 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
+                autoComplete="new-password"
+              />
+              {errors.password && <p className="mt-1 text-sm text-red-600">{errors.password}</p>}
+            </div>
+
+            <div>
               <label className="block text-sm font-medium text-gray-800">Phone Number *</label>
               <input
                 type="tel"
@@ -162,18 +166,6 @@ export default function SignupPage() {
                 autoComplete="tel"
               />
               {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
-            </div>
-
-            <div>
-              <label className="block text-sm font-medium text-gray-800">Email Address *</label>
-              <input
-                type="email"
-                value={values.email}
-                onChange={(e) => onChange("email", e.target.value)}
-                className="mt-1 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
-                autoComplete="email"
-              />
-              {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email}</p>}
             </div>
 
             <div>
