@@ -11,7 +11,7 @@ export default function SignupPage() {
   const router = useRouter();
   const [values, setValues] = useState<FormValues>({
     businessName: "",
-    contactName: "",
+    contactPersonName: "",
     email: "",
     password: "",
     phone: "",
