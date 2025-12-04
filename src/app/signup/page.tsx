@@ -53,7 +53,7 @@ export default function SignupPage() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) err.email = "Enter a valid email";
     if (!v.password || v.password.length < 6) err.password = "Password must be at least 6 characters";
     if (!/^\+?[0-9]{7,15}$/.test(v.phoneNumber)) err.phoneNumber = "Enter a valid phone number";
-    if (!v.businessType) err.businessType = "Select a business type";
+    if (!v.typeOfBusiness) err.typeOfBusiness = "Select a business type";
     if (!v.location.trim()) err.location = "Location is required";
     // Social media fields are optional and accept any input
     return err;
