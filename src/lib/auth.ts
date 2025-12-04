@@ -107,16 +107,20 @@ class AuthService {
       }
     );
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || "Email verification failed");
+    let result;
+    try {
+      result = await response.json();
+    } catch (e) {
+      throw new Error("Failed to process server response");
     }
 
-    const result = await response.json();
-    
+    if (!response.ok) {
+      throw new Error(result.message || "Email verification failed");
+    }
+
     // Mark email as verified
     this.setEmailVerified(true);
-    
+
     return result;
   }
 
