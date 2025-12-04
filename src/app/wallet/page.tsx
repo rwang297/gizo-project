@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/lib/hooks/useAuth";
 
 const transactions = [
   { id: "TX-001", title: "Sale - Premium Wireless Headphones", status: "Completed", amount: "+$299.99", date: "1/15/2024", type: "credit" },
