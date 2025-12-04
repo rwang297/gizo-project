@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/lib/hooks/useAuth";
 
 const notifications = [
   {
