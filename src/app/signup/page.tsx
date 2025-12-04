@@ -120,12 +120,12 @@ export default function SignupPage() {
               <label className="block text-sm font-medium text-gray-800">Contact Person Name *</label>
               <input
                 type="text"
-                value={values.contactName}
-                onChange={(e) => onChange("contactName", e.target.value)}
+                value={values.contactPersonName}
+                onChange={(e) => onChange("contactPersonName", e.target.value)}
                 className="mt-1 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                 autoComplete="name"
               />
-              {errors.contactName && <p className="mt-1 text-sm text-red-600">{errors.contactName}</p>}
+              {errors.contactPersonName && <p className="mt-1 text-sm text-red-600">{errors.contactPersonName}</p>}
             </div>
 
             <div>
