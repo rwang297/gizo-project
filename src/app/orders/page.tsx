@@ -1,4 +1,7 @@
-import React from "react";
+"use client";
+
+import React, { useEffect, useState } from "react";
+import { useProtectedRoute } from "@/lib/hooks/useAuth";
 
 const orders = [
   { id: "PRD-001", customer: "Products", email: "Added", items: 1, total: "₦499.98", date: "1/15/2024",  avatar: "images/apple.png" },
