@@ -158,12 +158,12 @@ export default function SignupPage() {
                 type="tel"
                 inputMode="tel"
                 placeholder="+234XXXXXXXXXX"
-                value={values.phone}
-                onChange={(e) => onChange("phone", e.target.value)}
+                value={values.phoneNumber}
+                onChange={(e) => onChange("phoneNumber", e.target.value)}
                 className="mt-1 w-full rounded-lg border border-emerald-300 bg-white px-3 py-2 text-gray-900 focus:border-emerald-500 focus:outline-none focus:ring-2 focus:ring-emerald-200"
                 autoComplete="tel"
               />
-              {errors.phone && <p className="mt-1 text-sm text-red-600">{errors.phone}</p>}
+              {errors.phoneNumber && <p className="mt-1 text-sm text-red-600">{errors.phoneNumber}</p>}
             </div>
 
             <div>
