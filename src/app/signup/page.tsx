@@ -49,7 +49,7 @@ export default function SignupPage() {
   function validate(v: FormValues) {
     const err: Partial<Record<keyof FormValues, string>> = {};
     if (!v.businessName.trim()) err.businessName = "Business name is required";
-    if (!v.contactName.trim()) err.contactName = "Contact person name is required";
+    if (!v.contactPersonName.trim()) err.contactPersonName = "Contact person name is required";
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.email)) err.email = "Enter a valid email";
     if (!v.password || v.password.length < 6) err.password = "Password must be at least 6 characters";
     if (!/^\+?[0-9]{7,15}$/.test(v.phone)) err.phone = "Enter a valid phone number";
