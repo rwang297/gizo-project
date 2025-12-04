@@ -72,13 +72,17 @@ class AuthService {
       body: JSON.stringify(credentials),
     });
 
-    if (!response.ok) {
-      const error = await response.json();
-      throw new Error(error.message || "Login failed");
+    let result;
+    try {
+      result = await response.json();
+    } catch (e) {
+      throw new Error("Failed to process server response");
     }
 
-    const result = await response.json();
-    
+    if (!response.ok) {
+      throw new Error(result.message || "Login failed");
+    }
+
     // Check if email is verified before storing token
     if (!result.emailVerified) {
       throw new Error("Email not verified. Please check your email for verification link.");
