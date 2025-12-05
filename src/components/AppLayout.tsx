@@ -7,7 +7,7 @@ import Header from "@/components/Header";
 
 export default function AppLayout({ children }: { children: React.ReactNode }) {
   const pathname = usePathname() || "/";
-  const noSidebarRoutes = new Set(["/", "/login", "/signup", "/marketplace", "/campaign"]);
+  const noSidebarRoutes = new Set(["/", "/login", "/signup", "/marketplace", "/campaign", "/auth/verify"]);
   const showSidebar = !noSidebarRoutes.has(pathname);
   const [mobileSidebarOpen, setMobileSidebarOpen] = useState(false);
 
